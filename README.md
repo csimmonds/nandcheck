@@ -9,13 +9,14 @@ nand_check /dev/mtdN
 
 For each NAND eraseblock, nand_check prints
 
-|----|------------------------|
-| B  | Bad block              |
-| .  | Empty                  |
-| -  | Partially filled       |
-| =  | Full, no summary node  |
-| S  | Full, summary node     |
- 
+```
+B   Bad block
+.   Empty
+-   Partially filled
+=   Full, no summary node
+S   Full, summary node
+```
+
 # Compiling
 When cross-compiling, set CC to point to your cross compiler, for example:
 ```
