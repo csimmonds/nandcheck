@@ -88,7 +88,8 @@ int main(int argc, char **argv)
 	printf("Flash type is %d\n", meminfo.type);
 
 	/* Make sure device page sizes are valid */
-	if (!(meminfo.oobsize == 64) &&
+	if (!(meminfo.oobsize == 128) &&
+	    !(meminfo.oobsize == 64) &&
 	    !(meminfo.oobsize == 32) &&
 	    !(meminfo.oobsize == 16) && !(meminfo.oobsize == 8)) {
 		fprintf(stderr, "Unknown type of flash (not normal NAND)\n");
@@ -100,6 +101,7 @@ int main(int argc, char **argv)
 	end_addr = meminfo.size;
 	bs = meminfo.writesize;
 
+	printf("B Bad block; . Empty; - Partially filled; = Full, no summary; S Full, summary\n");
 	printf("Block size %u, page size %u, OOB size %u\n",
 	       meminfo.erasesize, bs, meminfo.oobsize);
 	printf("%lu bytes, %lu blocks\n",
