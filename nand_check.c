@@ -101,11 +101,12 @@ int main(int argc, char **argv)
 	end_addr = meminfo.size;
 	bs = meminfo.writesize;
 
-	printf("B Bad block; . Empty; - Partially filled; = Full, no summary; S Full, summary\n");
-	printf("Block size %u, page size %u, OOB size %u\n",
-	       meminfo.erasesize, bs, meminfo.oobsize);
-	printf("%lu bytes, %lu blocks\n",
-	       end_addr, end_addr / meminfo.erasesize);
+	printf
+	    ("B Bad block; . Empty; - Partially filled; = Full; S has a JFFS2 summary node\n");
+	printf("Block size %u, page size %u, OOB size %u\n", meminfo.erasesize,
+	       bs, meminfo.oobsize);
+	printf("%lu bytes, %lu blocks\n", end_addr,
+	       end_addr / meminfo.erasesize);
 
 	block_buf = malloc(meminfo.erasesize);
 	for (ofs = start_addr; ofs < end_addr; ofs += meminfo.erasesize) {
@@ -126,15 +127,16 @@ int main(int argc, char **argv)
 			return 1;
 		} else {
 			bad_block = 0;
-			/* See how much of the block contains "data", i.e. not ff */
+			/* See how much of the block contains "data", by
+			   scanning backwards to find the first non 0xff byte */
 			for (i = (meminfo.erasesize - 1); i >= 0; i--) {
 				if (block_buf[i] != 0xff)
 					break;
 			}
-			/* See if there is a summary node at the end of the block
-			   Here, we just check for the summary marker in the last
-			   4 bytes, we don't check that the block it points to is
-			   valid */
+			/* See if there is a summary node at the end of the
+			   block. Here, we just check for the summary marker
+			   in the last 4 bytes, we don't check that the block
+			   it points to is  valid */
 			if (*(unsigned long *)
 			    (block_buf + meminfo.erasesize -
 			     sizeof(unsigned long)) == JFFS2_SUM_MAGIC)
