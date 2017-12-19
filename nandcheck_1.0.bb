@@ -1,7 +1,9 @@
-SUMMARY = "NAND check"
-LICENSE = "CLOSED"
+SUMMARY = "Print NAND block usage and bad blocks in an MTD partition"
+LICENSE = "GPLv2"
+LIC_FILES_CHKSUM = "file://COPYING;md5=801f80980d171dd6425610833a22dbe6"
 SRC_URI = "git://github.com/csimmonds/nandcheck.git"
-SRCREV = "aeab1466cd5a7e057e646f7ea6aea740e1605273"
+SRCREV = "${AUTOREV}"
+PV = "1.0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
 
