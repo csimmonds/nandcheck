@@ -3,8 +3,8 @@
 # If cross-compiling, CC must point to your cross compiler, for example:
 # make CC=arm-linux-gnueabihf-gcc
 
-DESTDIR ?= /usr
-BINDIR ?= bin
+DESTDIR ?= /
+BINDIR ?= usr/bin
 LOCAL_CFLAGS ?= -Wall -g
 PROGRAM = nand_check
 
